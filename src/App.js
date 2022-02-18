@@ -9,7 +9,6 @@ import { FeedbackProvider } from './context/FeedbackContext';
 import Header from './components/Header';
 
 const App = () => {
-	
 	return (
 		<FeedbackProvider>
 			<Router>
@@ -20,14 +19,16 @@ const App = () => {
 							path="/"
 							element={
 								<>
-									<FeedbackForm  />
+									<FeedbackForm />
 									<FeedbackStats />
-									<FeedbackList  />
+									<FeedbackList />
 								</>
 							}
 						></Route>
+
 						<Route path="/about" element={<About />} />
 					</Routes>
+
 					<AboutIconLink />
 				</div>
 			</Router>

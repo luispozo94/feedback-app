@@ -13,25 +13,52 @@ export const FeedbackProvider = ({ children }) => {
 			text: 'This item is from context',
 			rating: 10,
 		},
+		{
+			id: 2,
+			text: 'This item is from context',
+			rating: 8,
+		},
+		{
+			id: 3,
+			text: 'This item is from context',
+			rating: 5,
+		},
 	]);
+	const [feedbackEdit, setFeedbackEdit] = useState({
+		item: {},
+		edit: false,
+	});
 
-	//!adding a new feedback
+	//!update a feedback
+	const editFeedback = (item) => {
+		setFeedbackEdit({
+			item,
+			edit: true,
+		});
+	};
+	//!add a new feedback
 	const addFeedback = (newFeedback) => {
 		newFeedback.id = uuidv4(); //added an id
 		setFeedback([newFeedback, ...feedback]); //push new feedback to the feedback array
-  };
-  
-	//!deleting a feedback
+	};
+
+	//!delete a feedback
 	const deleteFeedback = (id) => {
 		if (window.confirm('Are you sure you want to delete this feedback?')) {
 			setFeedback(feedback.filter((item) => item.id !== id));
 		}
-  };
-  /*passing the state and functions to the context value prop.
+	};
+
+	const updatedFeedback = (id, updItem) => {
+		setFeedback(feedback.map((item) => (item.id === id ? { ...item, ...updItem } : { item })));
+	};
+	/*passing the state and functions to the context value prop.
   children is passing the data being passed from the components
   */
 	return (
-		<FeedbackContext.Provider value={{ feedback, deleteFeedback,addFeedback }}>
+		<FeedbackContext.Provider
+			value={{ feedback, feedbackEdit, deleteFeedback, addFeedback, editFeedback, updatedFeedback }}
+		>
 			{children}
 		</FeedbackContext.Provider>
 	);
